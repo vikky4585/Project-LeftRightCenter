@@ -13,7 +13,8 @@ from keras.layers import Dense
 
 #%%
 
-def runPredictor(X,y):
+def runPredictor(X,y, modelType):
+    print(f'***Running for {modelType} X size: {X.shape}, y size: {y.shape}')
     X_train, X_test, y_train, y_test = train_test_split(X,y, random_state=1, stratify=y)
 
     label_encoder = LabelEncoder()
@@ -37,7 +38,7 @@ def runPredictor(X,y):
 
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-    model.fit(X_train, y_train_category,epochs=100, shuffle=True,verbose=2)
+    model.fit(X_train, y_train_category,epochs=500, shuffle=True,verbose=2)
 
 
     #%%
