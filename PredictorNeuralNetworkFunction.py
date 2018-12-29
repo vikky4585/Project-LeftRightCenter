@@ -7,6 +7,11 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from keras.utils import to_categorical
 from keras.models import Sequential
 from keras.layers import Dense
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC 
+from sklearn.metrics import classification_report
+
+
 #%%
 
 
@@ -56,4 +61,10 @@ def runPredictor(X,y, modelType):
     print(f"Predicted classes: {prediction_labels}")
     print(f"Actual Labels: {list(y_test[:10])}")
 
-
+def runSVM(X,y, modelType):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
+    model = SVC(kernel='linear')
+    model.fit(X_train, y_train)
+    print('Test Acc: %.3f' % model.score(X_test, y_test))    
+    predictions = model.predict(X_test)
+    print(classification_report(y_test, predictions,target_names=['democrats','republicans']))
