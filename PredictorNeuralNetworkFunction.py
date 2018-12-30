@@ -43,7 +43,7 @@ def runPredictor(X,y, modelType):
 
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-    model.fit(X_train, y_train_category,epochs=500, shuffle=True,verbose=2)
+    model.fit(X_train, y_train_category,epochs=200, shuffle=True,verbose=2)
 
 
     #%%
