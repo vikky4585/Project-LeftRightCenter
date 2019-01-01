@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<title>PROJECT II</title>
+<title>Left Right & Center</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -31,62 +31,75 @@
 
 <body>
 
-    <!-- Navbar -->
-    <div class="w3-top">
-        <div class="w3-bar w3-black w3-card">
-            <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)"
-                onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-            <a href="/" class="w3-bar-item w3-button w3-padding-large">HOME</a>
-            <a href="#Proposal" class="w3-bar-item w3-button w3-padding-large w3-hide-small">PROPOSAL</a>
-            <a href="#Directions" class="w3-bar-item w3-button w3-padding-large w3-hide-small">DIRECTIONS</a>
-            <div class="w3-dropdown-hover">
 
-                <a href="#Predict" class="w3-bar-item w3-button w3-padding-large w3-hide-small">PREDICT</a>
-                <div class="w3-dropdown-content w3-bar-block w3-border">
-                    <a href="/dnn" class="w3-bar-item w3-button">Deep Neural Network</a>
 
-                </div>
-            </div>
+    <div class="container-fluid">
+        <div class="row">
+            <p></p>
 
-            <a href="#Members" class="w3-bar-item w3-button w3-padding-large w3-hide-small">MEMBERS</a>
-            <a href="#Tools" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TOOLS</a>
 
+        </div>
+
+        <div class="row">
+
+            <!--div class="col-xs-4">
+                    <div class="input-group">
+                            <input class="form-control width100 " placeholder="Recipient's username" aria-label="Recipient's username">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info">Predict!</button>
+                            </span>
+                        </div>
+            </div-->
+            <form>
+                    <div class="form-group">
+                            <label for="inputEmail4">Twitter Handle</label>
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="@" style="width:30%">
+                        </div>
+                        <div class="form-group">
+                                <label for="inputState">Choose Algorithm</label>
+                                <select id="inputState" class="form-control" style="width:30%">
+                                    <option selected>Choose...</option>
+                                    <option>NeuralNet- Raw Score</option>
+                                    <option>NeuralNet- Percentile Score</option>
+                                    <option>NeuralNet- Categorical Score</option>
+        
+                                </select>
+                            </div>
+                <!--div class="form-row">
+                    <div class="form-group col-xs-4">
+                        <label for="inputEmail4">Twitter Handle</label>
+                        <input type="email" class="form-control" id="inputEmail4" placeholder="@">
+                    </div>
+                </div-->
+                <!--div class="form-row">
+                    <div class="form-group col-xs-4">
+                        <label for="inputState">Choose Algorithm</label>
+                        <select id="inputState" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>NeuralNet- Raw Score</option>
+                            <option>NeuralNet- Percentile Score</option>
+                            <option>NeuralNet- Categorical Score</option>
+
+                        </select>
+                    </div>
+                </div-->
+                <button type="submit" class="btn btn-info">Predict!</button>
+
+            </form>
         </div>
     </div>
 
-    <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
-    <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
-        <a href="#Proposal" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">PROPOSAL</a>
-        <a href="#Directions" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">DIRECTIONS</a>
-        <a href="#Map" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">PREDICT</a>
-        <a href="#Members" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">MEMBERS</a>
-    </div>
-
-    <p></p>
-    <p></p>
-    <p></p>
-    <div class="form-group">
-        <label for="usr">Name:</label>
-        <input type="text" class="form-control" id="usr">
-      </div>
 
 
-      <div class="input-group row">
-          <div class="col-xs-12">
-                <input type="text" class="form-control" >
-                <span class="input-group-btn">
-                     <button class="btn btn-default" type="button">Predict!</button>
-                </span>
-          </div>
 
-     </div>
+
 
     <!-- Footer -->
     <!--footer class="w3-container w3-padding-16 w3-center w3-opacity w3-light-grey w3-xlarge">
         <p class="w3-medium">Northwestern Data Science Boot Camp</p>
     </footer-->
 
-   
+
 
 
 </body>
