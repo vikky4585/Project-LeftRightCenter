@@ -1,7 +1,11 @@
 import json
 import re
 from datetime import datetime
-
+from keras.models import load_model
+import tensorflow as tf
+from keras.models import Sequential
+from keras.utils import to_categorical
+from keras.layers import Dense
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -36,8 +40,8 @@ def payload(text):
 
 def gettweets(target_user):
     tweets = []
-
-    for x in range(1, 26):
+    #decrease count list from 26 to 10
+    for x in range(1, 11):
         
         public_tweets = api.user_timeline(target_user, page=x, tweet_mode='extended')
 
@@ -69,6 +73,7 @@ def cleanText(x):
 def sendLIWC(text):
     
     response = requests.post(url, headers=headers,json=payload(text))
+    print(f'liwc response {response.json()}')
     liwc = {}
     raw_score = dict(liwc)
     raw_score.update(response.json()['receptiviti_scores']['raw_scores'])
@@ -81,7 +86,7 @@ def sendLIWC(text):
 
 def predictions(liwcdata, modelType):
 
-    model.load('models/raw_full.h5')
+    model = load_model('models/raw_full.h5')
     ynew = model.predict(liwcdata[0])
     return ynew
 
@@ -104,7 +109,7 @@ def predict():
     text = ''
     for t in df['full_text_formatted']:
         text = text + t + '.'
-    print('sending text to liwc api')
+    print(f'sending text to liwc api : {text}')
 
     liwcdata = sendLIWC(text)
     predicted = predictions(liwcdata, algoname)
