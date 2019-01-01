@@ -66,14 +66,10 @@ def cleanText(x):
     x = re.sub(r'\w+:\s?', '', x)
     return x
 
-def sendLIWC(text, party, userid):
+def sendLIWC(text):
     
-    print(f'sending request for userid {userid}' )
-
     response = requests.post(url, headers=headers,json=payload(text))
     liwc = {}
-    liwc['userid'] = userid
-    liwc['party'] = party
     raw_score = dict(liwc)
     raw_score.update(response.json()['receptiviti_scores']['raw_scores'])
     percentile_score = dict(liwc)
@@ -81,7 +77,13 @@ def sendLIWC(text, party, userid):
     category_score = dict(liwc)
     category_score.update(response.json()['liwc_scores']['categories'])
     
+    return (raw_score, percentile_score, category_score)
 
+def predictions(liwcdata, modelType):
+
+    model.load('models/raw_full.h5')
+    ynew = model.predict(liwcdata[0])
+    return ynew
 
 @app.route("/")
 def home():
@@ -104,7 +106,9 @@ def predict():
         text = text + t + '.'
     print('sending text to liwc api')
 
-
+    liwcdata = sendLIWC(text)
+    predicted = predictions(liwcdata, algoname)
+    print(f'predicted value from model {predicted}')
     #return a jsonify version of preidctons and other data
     return render_template("dnn.html")
 
