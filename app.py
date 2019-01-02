@@ -85,14 +85,15 @@ def sendLIWC(text):
     return (raw_score, percentile_score, category_score)
 
 def predictions(liwcdata, modelType):
-
+    lst = []
+    lst.append(liwcdata[0])
     print(f'liwcdata {liwcdata} and {liwcdata[0]}')
-    Xnew = pd.DataFrame.from_dict(liwcdata[0])
+    Xnew = pd.DataFrame(lst)
     Xnew.head()
     print(f'Xnew value {Xnew.head()} and first row {Xnew[:1]}')
 
     model = load_model('models/raw_full.h5')
-    ynew = model.predict(Xnew[:1])
+    ynew = model.predict_classes(Xnew[:1])
     return ynew
 
 @app.route("/")
