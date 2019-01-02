@@ -60,6 +60,8 @@ def runPredictor(X,y, modelType):
 
     print(f"Predicted classes: {prediction_labels}")
     print(f"Actual Labels: {list(y_test[:10])}")
+    
+    model.save('models/' + modelType + '.h5')
 
 def runSVM(X,y, modelType):
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
@@ -68,3 +70,4 @@ def runSVM(X,y, modelType):
     print('Test Acc: %.3f' % model.score(X_test, y_test))    
     predictions = model.predict(X_test)
     print(classification_report(y_test, predictions,target_names=['democrats','republicans']))
+    #model.save('models/' + modelType + '.h5')

@@ -121,7 +121,12 @@ def predict():
     predicted = predictions(liwcdata, algoname)
     print(f'predicted value from model {predicted}')
     #return a jsonify version of preidctons and other data
-    return render_template("dnn.html")
+
+    packet = {}
+    packet['handle'] = handle
+    packet['algoname'] = algoname
+    packet['predicted'] = predicted
+    return render_template("dnn.html", packet=packet)
 
 @app.route("/buzzwordmap/<buzzword>")
 def buzzwordmap(buzzword):
