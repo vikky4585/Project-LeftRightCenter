@@ -73,7 +73,7 @@ def cleanText(x):
 def sendLIWC(text):
     
     response = requests.post(url, headers=headers,json=payload(text))
-    print(f'liwc response {response.json()}')
+    #print(f'liwc response {response.json()}')
     liwc = {}
     raw_score = dict(liwc)
     raw_score.update(response.json()['receptiviti_scores']['raw_scores'])
@@ -86,8 +86,13 @@ def sendLIWC(text):
 
 def predictions(liwcdata, modelType):
 
+    print(f'liwcdata {liwcdata} and {liwcdata[0]}')
+    Xnew = pd.DataFrame.from_dict(liwcdata[0])
+    Xnew.head()
+    print(f'Xnew value {Xnew.head()} and first row {Xnew[:1]}')
+
     model = load_model('models/raw_full.h5')
-    ynew = model.predict(liwcdata[0])
+    ynew = model.predict(Xnew[:1])
     return ynew
 
 @app.route("/")
