@@ -2,6 +2,8 @@ import json
 import re
 from datetime import datetime
 from keras.models import load_model
+from keras import backend as K
+
 import tensorflow as tf
 from keras.models import Sequential
 from keras.utils import to_categorical
@@ -22,6 +24,9 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 url='https://api-v3.receptiviti.com/v3/api/content'
 headers={'X-API-KEY': x_api_key, 'X-API-SECRET-KEY':x_api_secret_key}
+
+model = None
+graph = None
 
 app = Flask(__name__)
 
@@ -84,6 +89,7 @@ def sendLIWC(text):
     
     return (raw_score, percentile_score, category_score)
 
+    
 def predictions(liwcdata, modelType):
     lst = []
     lst.append(liwcdata[0])
@@ -92,8 +98,11 @@ def predictions(liwcdata, modelType):
     Xnew.head()
     print(f'Xnew value {Xnew.head()} and first row {Xnew[:1]}')
 
-    model = load_model('models/raw_full.h5')
-    ynew = model.predict_classes(Xnew[:1])
+    global model
+    with graph.as_default():
+
+        model = load_model('models/raw_full.h5')
+        ynew = model.predict_classes(Xnew[:1])
     return ynew[0]
 
 @app.route("/")
@@ -116,6 +125,8 @@ def predict():
     for t in df['full_text_formatted']:
         text = text + t + '.'
     print(f'sending text to liwc api : {text}')
+    global graph
+    graph = K.get_session().graph
 
     liwcdata = sendLIWC(text)
     predicted = predictions(liwcdata, algoname)
