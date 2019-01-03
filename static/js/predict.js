@@ -15,7 +15,11 @@ function fetchData(){
         url: dataurl,
         data: inputData,
         success: function(d) {
-             alert("Save Complete") 
+                console.log("received data " +  JSON.stringify(d));
+                let user = d[0]["handle"];
+                let predictions = d[0]["predicted"];
+                console.log("predictions " + predictions);
+                d3.selectAll("#predictionText").text("User "+user+" appears "+predictions )  ; 
             }
   });
 }

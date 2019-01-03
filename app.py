@@ -94,7 +94,7 @@ def predictions(liwcdata, modelType):
 
     model = load_model('models/raw_full.h5')
     ynew = model.predict_classes(Xnew[:1])
-    return ynew
+    return ynew[0]
 
 @app.route("/")
 def home():
@@ -122,11 +122,16 @@ def predict():
     print(f'predicted value from model {predicted}')
     #return a jsonify version of preidctons and other data
 
+    dataList=[]
     packet = {}
     packet['handle'] = handle
     packet['algoname'] = algoname
-    packet['predicted'] = predicted
-    return render_template("dnn.html", packet=packet)
+    packet['predicted'] = str(predicted)
+    #return render_template("dnn.html", packet=packet)
+    dataList.append(packet)
+    print(f'sending data packet {packet} inside list {dataList}')
+    return jsonify(dataList)
+
 
 @app.route("/buzzwordmap/<buzzword>")
 def buzzwordmap(buzzword):
