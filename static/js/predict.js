@@ -20,6 +20,23 @@ function fetchData(){
                 let predictions = d[0]["predicted"];
                 console.log("predictions " + predictions);
                 d3.selectAll("#predictionText").text("User "+user+" appears "+predictions )  ; 
+                epochs = Array.from({length:d[0]['acc']},(v,k)=>k+1)
+                var trace = {
+                    type: "scatter",
+                    mode: "lines",
+                    name: name,
+                    x: epochs,
+                    y: d[0]['acc'],
+                    line: {
+                      color: "darkorange",
+                      width: 4
+                    }
+                  };
+    
+                  var data = [trace];
+
+                  Plotly.newPlot("plot1", data);
+
             }
   });
 }

@@ -139,8 +139,11 @@ def predict():
     packet['algoname'] = algoname
     packet['predicted'] = str(predicted)
     #return render_template("dnn.html", packet=packet)
+
+    matrixDict = json.load(open("data/matrix/raw_full_matrix.txt"))
+    packet.update(matrixDict)
     dataList.append(packet)
-    print(f'sending data packet {packet} inside list {dataList}')
+    #print(f'sending data packet {packet} inside list {dataList}')
     return jsonify(dataList)
 
 

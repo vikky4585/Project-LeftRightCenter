@@ -10,13 +10,15 @@ from keras.layers import Dense
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC 
 from sklearn.metrics import classification_report
+import json
+
+#%%
+
 
 
 #%%
+    
 
-
-
-#%%
 
 def runPredictor(X,y, modelType):
     print(f'***Running for {modelType} X size: {X.shape}, y size: {y.shape}')
@@ -43,7 +45,7 @@ def runPredictor(X,y, modelType):
 
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-    model.fit(X_train, y_train_category,epochs=200, shuffle=True,verbose=2)
+    result = model.fit(X_train, y_train_category,epochs=200, shuffle=True,verbose=2)
 
 
     #%%
@@ -58,10 +60,14 @@ def runPredictor(X,y, modelType):
     prediction_labels = label_encoder.inverse_transform(predictions)
     prediction_labels
 
+    exDict = {'model_loss': model_loss,'model_accuracy': model_accuracy, 'loss':result.history['loss'],'acc': result.history['acc']}    
+    with open(f'data/matrix/{modelType}_matrix.txt', 'w') as file:
+        file.write(json.dumps(exDict))
     print(f"Predicted classes: {prediction_labels}")
     print(f"Actual Labels: {list(y_test[:10])}")
     
     model.save('models/' + modelType + '.h5')
+
 
 def runSVM(X,y, modelType):
     X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
