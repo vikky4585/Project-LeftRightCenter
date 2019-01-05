@@ -15,27 +15,42 @@ function fetchData(){
         url: dataurl,
         data: inputData,
         success: function(d) {
-                console.log("received data " +  JSON.stringify(d));
+                //console.log("received data " +  JSON.stringify(d));
                 let user = d[0]["handle"];
                 let predictions = d[0]["predicted"];
                 console.log("predictions " + predictions);
                 d3.selectAll("#predictionText").text("User "+user+" appears "+predictions )  ; 
-                epochs = Array.from({length:d[0]['acc']},(v,k)=>k+1)
-                var trace = {
+                epochs = Array.from({length:d[0]['acc'].length-1},(v,k)=>k+1)
+                var trace1 = {
                     type: "scatter",
                     mode: "lines",
                     name: name,
                     x: epochs,
                     y: d[0]['acc'],
                     line: {
-                      color: "darkorange",
+                      color: "green",
+                      width: 4
+                    }
+                  };
+
+                  var trace2 = {
+                    type: "scatter",
+                    mode: "lines",
+                    name: name,
+                    x: epochs,
+                    y: d[0]['loss'],
+                    line: {
+                      color: "blue",
                       width: 4
                     }
                   };
     
-                  var data = [trace];
+                  var data1 = [trace1];
+                  var data2 = [trace2];
 
-                  Plotly.newPlot("plot1", data);
+                  Plotly.newPlot("plot1", data1);
+                  Plotly.newPlot("plot2", data2);
+
 
             }
   });
