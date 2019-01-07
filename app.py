@@ -129,7 +129,10 @@ def predict():
     graph = K.get_session().graph
 
     liwcdata = sendLIWC(text)
-    predicted = predictions(liwcdata, algoname)
+    predicted_class = predictions(liwcdata, algoname)
+    predicted = 'Democrat'
+    if predicted_class == 1:
+        predicted = 'Republican'
     print(f'predicted value from model {predicted}')
     #return a jsonify version of preidctons and other data
 
