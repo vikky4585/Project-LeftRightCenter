@@ -29,7 +29,8 @@ function fetchData(){
                 let user = d[0]["handle"];
                 let predictions = d[0]["predicted"];
                 console.log("predictions " + predictions);
-                d3.selectAll("#predictionText").text("User "+user+" appears "+predictions )  ; 
+                d3.selectAll("#predictionText").
+                text(user+" is likely <b>"+ predictions + "</b> with " + d[0]["model_accuracy"] * 100 + "% accuracy.")  ; 
                 epochs = Array.from({length:d[0]['acc'].length-1},(v,k)=>k+1)
                 var trace1 = {
                     type: "scatter",
