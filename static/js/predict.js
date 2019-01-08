@@ -1,3 +1,6 @@
+
+
+
 function cleanUp(){
     var plt = document.getElementById("plot1");
     plt.innerHTML = '';
@@ -30,7 +33,7 @@ function fetchData(){
                 let predictions = d[0]["predicted"];
                 console.log("predictions " + predictions);
                 d3.selectAll("#predictionText").
-                text(user+" is likely <b>"+ predictions + "</b> with " + d[0]["model_accuracy"] * 100 + "% accuracy.")  ; 
+                text(user+" is likely <b>"+ predictions + "</b> with " + +d[0]["model_accuracy"].toFixed(2) * 100 + "% accuracy.")  ; 
                 epochs = Array.from({length:d[0]['acc'].length-1},(v,k)=>k+1)
                 var trace1 = {
                     type: "scatter",

@@ -30,6 +30,16 @@ graph = None
 
 app = Flask(__name__)
 
+algoNameMap = {}
+algoNameMap['NeuralNet- Raw Score'] = 'liwc_raw_scores_full'
+algoNameMap['NeuralNet- Raw Score - Big5'] = 'liwc_raw_scores_full_big5'
+algoNameMap['NeuralNet- Raw Score - Aggressive'] = 'liwc_raw_scores_full_aggressive'
+algoNameMap['NeuralNet- Percentile Score'] = 'liwc_percentile_scores_full'
+algoNameMap['NeuralNet- Categorical Score'] = 'liwc_categorical_scores_full'
+algoNameMap['NeuralNet- Categorical Score - Top5'] = 'liwc_categorical_scores_full_top5'
+
+
+
 def payload(text):
     payload = {}
     tags = []
@@ -56,8 +66,6 @@ def gettweets(target_user):
             
                 details['created_at'] = twt['created_at']
                 details['screen_name'] = twt['user']['screen_name']
-                #details['text'] = twt['text']
-                #details['full_text'] = twt['extended_tweet']['full_text']
                 details['full_text'] = twt['full_text']
                 
                 tweets.append(details)
@@ -97,11 +105,11 @@ def predictions(liwcdata, modelType):
     Xnew = pd.DataFrame(lst)
     Xnew.head()
     print(f'Xnew value {Xnew.head()} and first row {Xnew[:1]}')
-
+    model_path = 'models/' + algoNameMap[modelType] + '.h5'
     global model
     with graph.as_default():
 
-        model = load_model('models/raw_full.h5')
+        model = load_model(model_path)
         ynew = model.predict_classes(Xnew[:1])
     return ynew[0]
 
