@@ -54,11 +54,11 @@ h1 {
 
 
 .loader {
-  border: 16px solid #f3f3f3;
+  border: 16px solid lightgreen;
   border-radius: 50%;
-  border-top: 16px solid blue;
+  border-top: 16px solid lightseagreen;
   border-right: 16px solid green;
-  border-bottom: 16px solid red;
+  border-bottom: 16px solid darkgreen;
   width: 120px;
   height: 120px;
   -webkit-animation: spin 2s linear infinite;
