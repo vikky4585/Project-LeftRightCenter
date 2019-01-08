@@ -1,3 +1,6 @@
+
+
+
 function cleanUp(){
     var plt = document.getElementById("plot1");
     plt.innerHTML = '';
@@ -7,13 +10,17 @@ function cleanUp(){
 
     plt = document.getElementById("predictionText");
     plt.innerHTML = '';
+
+    // plt = document.getElementById("spinner");
+    // plt.innerHTML = '';
 }
 
 function fetchData(){
     d3.event.preventDefault();
+    cleanUp();
     dataurl = "/predict"
     console.log("inside fetchdata")
-
+    d3.select("#spinner").append("div").attr("class","loader")
     user = d3.select("#inputEmail4").property("value")
     option = d3.select("#inputState").property("value")
     console.log("input user " + option)
@@ -26,10 +33,13 @@ function fetchData(){
         data: inputData,
         success: function(d) {
                 //console.log("received data " +  JSON.stringify(d));
+                d3.select("#spinner").remove("div")
+
                 let user = d[0]["handle"];
                 let predictions = d[0]["predicted"];
                 console.log("predictions " + predictions);
-                d3.selectAll("#predictionText").text("User "+user+" appears "+predictions )  ; 
+                d3.selectAll("#predictionText").
+                text(user+" is likely "+ predictions + " with " + +d[0]["model_accuracy"].toFixed(2) * 100 + "% accuracy.")  ; 
                 epochs = Array.from({length:d[0]['acc'].length-1},(v,k)=>k+1)
                 var trace1 = {
                     type: "scatter",

@@ -57,8 +57,12 @@
                     <select id="inputState" class="form-control" style="width:30%" name="algoname">
                         <option selected>Choose...</option>
                         <option>NeuralNet- Raw Score</option>
-                        <option>NeuralNet- Percentile Score</option>
+                        <option>NeuralNet- Raw Score - Big5</option>
+                        <option>NeuralNet- Raw Score - Aggressive</option>
                         <option>NeuralNet- Categorical Score</option>
+                        <option>NeuralNet- Categorical Score - Top5</option>
+                        <option>NeuralNet- Percentile Score</option>
+
 
                     </select>
                 </div>
@@ -67,12 +71,24 @@
             </form>
         </div>
     </div>
-
+    <p></p>
     <div class="container-fluid">
+        <p></p>
 
         <div class="row">
             Predictions
         </div>
+
+        <div class="row">
+                <div class="col-md-2 col-md-offset-5" id="spinner">
+
+                </div>
+
+                <!--div class="loader"></div-->
+
+        </div>
+
+
         <div class="row">
             <p id ="predictionText"></p>
         </div>

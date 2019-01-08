@@ -30,6 +30,16 @@ graph = None
 
 app = Flask(__name__)
 
+algoNameMap = {}
+algoNameMap['NeuralNet- Raw Score'] = 'liwc_raw_scores_full'
+algoNameMap['NeuralNet- Raw Score - Big5'] = 'liwc_raw_scores_full_big5'
+algoNameMap['NeuralNet- Raw Score - Aggressive'] = 'liwc_raw_scores_full_aggressive'
+algoNameMap['NeuralNet- Percentile Score'] = 'liwc_percentile_scores_full'
+algoNameMap['NeuralNet- Categorical Score'] = 'liwc_categorical_scores_full'
+algoNameMap['NeuralNet- Categorical Score - Top5'] = 'liwc_categorical_scores_full_top5'
+
+
+
 def payload(text):
     payload = {}
     tags = []
@@ -56,8 +66,6 @@ def gettweets(target_user):
             
                 details['created_at'] = twt['created_at']
                 details['screen_name'] = twt['user']['screen_name']
-                #details['text'] = twt['text']
-                #details['full_text'] = twt['extended_tweet']['full_text']
                 details['full_text'] = twt['full_text']
                 
                 tweets.append(details)
@@ -93,15 +101,20 @@ def sendLIWC(text):
 def predictions(liwcdata, modelType):
     lst = []
     lst.append(liwcdata[0])
-    print(f'liwcdata {liwcdata} and {liwcdata[0]}')
+    #print(f'liwcdata {liwcdata} and {liwcdata[0]}')
     Xnew = pd.DataFrame(lst)
     Xnew.head()
-    print(f'Xnew value {Xnew.head()} and first row {Xnew[:1]}')
+    #print(f'Xnew value {Xnew.head()} and first row {Xnew[:1]}')
+    
 
+
+
+    model_path = 'models/' + algoNameMap[modelType] + '.h5'
+    print(f'predicting for model {model_path}')
     global model
     with graph.as_default():
 
-        model = load_model('models/raw_full.h5')
+        model = load_model(model_path)
         ynew = model.predict_classes(Xnew[:1])
     return ynew[0]
 
@@ -129,7 +142,10 @@ def predict():
     graph = K.get_session().graph
 
     liwcdata = sendLIWC(text)
-    predicted = predictions(liwcdata, algoname)
+    predicted_class = predictions(liwcdata, algoname)
+    predicted = 'Democrat'
+    if predicted_class == 1:
+        predicted = 'Republican'
     print(f'predicted value from model {predicted}')
     #return a jsonify version of preidctons and other data
 
@@ -137,10 +153,12 @@ def predict():
     packet = {}
     packet['handle'] = handle
     packet['algoname'] = algoname
+    #packet['backend_algoname'] = algoNameMap[algoname] 
+
     packet['predicted'] = str(predicted)
     #return render_template("dnn.html", packet=packet)
-
-    matrixDict = json.load(open("data/matrix/raw_full_matrix.txt"))
+    matrix_path = 'data/matrix/' + algoNameMap[algoname] + '_matrix.txt'
+    matrixDict = json.load(open(matrix_path))
     packet.update(matrixDict)
     dataList.append(packet)
     #print(f'sending data packet {packet} inside list {dataList}')
