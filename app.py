@@ -31,12 +31,13 @@ graph = None
 app = Flask(__name__)
 
 algoNameMap = {}
-algoNameMap['NeuralNet- Raw Score'] = 'liwc_raw_scores_full'
-algoNameMap['NeuralNet- Raw Score - Big5'] = 'liwc_raw_scores_full_big5'
-algoNameMap['NeuralNet- Raw Score - Aggressive'] = 'liwc_raw_scores_full_aggressive'
-algoNameMap['NeuralNet- Percentile Score'] = 'liwc_percentile_scores_full'
-algoNameMap['NeuralNet- Categorical Score'] = 'liwc_categorical_scores_full'
-algoNameMap['NeuralNet- Categorical Score - Top5'] = 'liwc_categorical_scores_full_top5'
+algoNameMap['NeuralNet- Raw Score'] = {'model_name':'liwc_raw_scores_full', 'model_index':0,'columns':[]}
+algoNameMap['NeuralNet- Raw Score - Big5'] = {'model_name':'liwc_raw_scores_full_big5', 'model_index':0,'columns':['openness','conscientiousness','extraversion','agreeableness','neuroticism']}
+algoNameMap['NeuralNet- Raw Score - Aggressive'] = {'model_name':'liwc_raw_scores_full_aggressive', 'model_index':0,'columns':['aggressive']}
+algoNameMap['NeuralNet- Percentile Score'] = {'model_name':'liwc_percentile_scores_full', 'model_index':1,'columns':[]}
+algoNameMap['NeuralNet- Categorical Score'] = {'model_name':'liwc_categorical_scores_full', 'model_index':2,'columns':[]}
+algoNameMap['NeuralNet- Categorical Score - Top5'] = {'model_name':'liwc_categorical_scores_full_top5', 'model_index':2,'columns':['cogproc','function','relativ','verb','social']}
+
 
 
 
@@ -100,16 +101,18 @@ def sendLIWC(text):
     
 def predictions(liwcdata, modelType):
     lst = []
-    lst.append(liwcdata[0])
+    lst.append(liwcdata[algoNameMap[modelType]['model_index']])
     #print(f'liwcdata {liwcdata} and {liwcdata[0]}')
     Xnew = pd.DataFrame(lst)
-    Xnew.head()
     #print(f'Xnew value {Xnew.head()} and first row {Xnew[:1]}')
-    
+    if algoNameMap[modelType]['columns']:
+        Xnew = Xnew[algoNameMap[modelType]['columns']]
+
+    print(f'Xnew input : {Xnew}')
+    Xnew.head()
 
 
-
-    model_path = 'models/' + algoNameMap[modelType] + '.h5'
+    model_path = 'models/' + algoNameMap[modelType]['model_name'] + '.h5'
     print(f'predicting for model {model_path}')
     global model
     with graph.as_default():
@@ -137,7 +140,7 @@ def predict():
     text = ''
     for t in df['full_text_formatted']:
         text = text + t + '.'
-    print(f'sending text to liwc api : {text}')
+    #print(f'sending text to liwc api : {text}')
     global graph
     graph = K.get_session().graph
 
@@ -157,7 +160,7 @@ def predict():
 
     packet['predicted'] = str(predicted)
     #return render_template("dnn.html", packet=packet)
-    matrix_path = 'data/matrix/' + algoNameMap[algoname] + '_matrix.txt'
+    matrix_path = 'data/matrix/' + algoNameMap[algoname]['model_name'] + '_matrix.txt'
     matrixDict = json.load(open(matrix_path))
     packet.update(matrixDict)
     dataList.append(packet)
