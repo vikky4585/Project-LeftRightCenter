@@ -101,11 +101,16 @@ def sendLIWC(text):
 def predictions(liwcdata, modelType):
     lst = []
     lst.append(liwcdata[0])
-    print(f'liwcdata {liwcdata} and {liwcdata[0]}')
+    #print(f'liwcdata {liwcdata} and {liwcdata[0]}')
     Xnew = pd.DataFrame(lst)
     Xnew.head()
-    print(f'Xnew value {Xnew.head()} and first row {Xnew[:1]}')
+    #print(f'Xnew value {Xnew.head()} and first row {Xnew[:1]}')
+    
+
+
+
     model_path = 'models/' + algoNameMap[modelType] + '.h5'
+    print(f'predicting for model {model_path}')
     global model
     with graph.as_default():
 
@@ -148,10 +153,12 @@ def predict():
     packet = {}
     packet['handle'] = handle
     packet['algoname'] = algoname
+    #packet['backend_algoname'] = algoNameMap[algoname] 
+
     packet['predicted'] = str(predicted)
     #return render_template("dnn.html", packet=packet)
-
-    matrixDict = json.load(open("data/matrix/raw_full_matrix.txt"))
+    matrix_path = 'data/matrix/' + algoNameMap[algoname] + '_matrix.txt'
+    matrixDict = json.load(open(matrix_path))
     packet.update(matrixDict)
     dataList.append(packet)
     #print(f'sending data packet {packet} inside list {dataList}')
