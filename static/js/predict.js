@@ -20,7 +20,7 @@ function fetchData(){
     cleanUp();
     dataurl = "/predict"
     console.log("inside fetchdata")
-    d3.select("#spinner").append("div").attr("class","loader")
+    d3.selectAll("#spinner").append("div").attr("class","loader")
     user = d3.select("#inputEmail4").property("value")
     option = d3.select("#inputState").property("value")
     console.log("input user " + option)
@@ -33,8 +33,8 @@ function fetchData(){
         data: inputData,
         success: function(d) {
                 //console.log("received data " +  JSON.stringify(d));
-                d3.select("#spinner").remove("div")
-
+                spinner = document.getElementById("spinner")
+                spinner.innerHTML = ''
                 let user = d[0]["handle"];
                 let predictions = d[0]["predicted"];
                 console.log("predictions " + predictions);
