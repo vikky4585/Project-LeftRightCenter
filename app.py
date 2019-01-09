@@ -123,7 +123,7 @@ def predictions(liwcdata, modelType):
 
 @app.route("/")
 def home():
-    return render_template("landingpage.html")
+    return render_template("landingpageNew.html")
 
 @app.route("/dnn")
 def dnn():

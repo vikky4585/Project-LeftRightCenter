@@ -47,7 +47,10 @@ function fetchData(){
             
 
                 d3.selectAll("#predictionText").
-                html("<p>" +user+" is likely <strong><span style=\"color:"+clr+"\">"+ predictions + "</span></strong> with " + +d[0]["model_accuracy"].toFixed(4) * 100 + "% accuracy.</p>")  ; 
+                html("<p>" +user+" is likely <strong><span style=\"color:"+clr+"\">"+ predictions + "</span></strong> with " 
+                + +d[0]["model_accuracy"].toFixed(4) * 100 
+                + "% accuracy.</p><br>"
+                + "<p>Model " + d[0]["algoname"] + " is trained on a dataset of ~257000 tweets with dataset ~4000.</p>")  ; 
 
                 epochs = Array.from({length:d[0]['acc'].length-1},(v,k)=>k+1)
                 var trace1 = {
