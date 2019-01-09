@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>Left Right & Center</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="../static/css/w3schools.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../static/css/styles.css">
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+    crossorigin=""></script>
+
+
+<style>
+    body {
+        font-family: "Lato", sans-serif
+    }
+
+    .mySlides {
+        display: none
+    }
+</style>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-card">
+            <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)"
+                onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+            <a href="/" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+            <a href="#Proposal" class="w3-bar-item w3-button w3-padding-large w3-hide-small">PROPOSAL</a>
+            <a href="#Directions" class="w3-bar-item w3-button w3-padding-large w3-hide-small">DIRECTIONS</a>
+            <div class="w3-dropdown-hover">
+
+                <a href="#Map" class="w3-bar-item w3-button w3-padding-large w3-hide-small">PREDICT</a>
+                <div class="w3-dropdown-content w3-bar-block w3-border">
+                    <a href="/dnn" class="w3-bar-item w3-button" target="_blank">Deep Neural Network</a>
+
+                </div>
+            </div>
+
+            <a href="#Members" class="w3-bar-item w3-button w3-padding-large w3-hide-small">MEMBERS</a>
+            <a href="#Tools" class="w3-bar-item w3-button w3-padding-large w3-hide-small">TOOLS</a>
+
+        </div>
+    </div>
+
+    <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
+    <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+        <a href="#Proposal" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">PROPOSAL</a>
+        <a href="#Directions" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">DIRECTIONS</a>
+        <a href="#Map" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">MAP</a>
+        <a href="#Analysis" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">ANALYSIS</a>
+        <a href="#Members" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">MEMBERS</a>
+    </div>
+
+
+
+    <!-- Page content -->
+
+    <!-- Automatic Slideshow Images -->
+    <div class="w3-content w3-padding-16" style="max-width:2000px;margin-top:46px;">
+
+        <div class="mySlides w3-display-container w3-center">
+            <img src="../static/images/hillaryclinton1.jpeg" width="auto" height="400" style="box-shadow:3px 3px 5px grey;">
+        </div>
+
+        <div class="mySlides w3-display-container w3-center">
+            <img src="../static/images/trump2.jpg" width="auto" height="400" style="box-shadow:3px 3px 5px grey;">
+        </div>
+
+        <div class="mySlides w3-display-container w3-center">
+            <img src="../static/images/voting.jpg" width="auto" height="400" style="box-shadow:3px 3px 5px grey;">
+        </div>
+
+        <div class="mySlides w3-display-container w3-center">
+            <img src="../static/images/voting4.jpg" width="auto" height="400" style="box-shadow:3px 3px 5px grey;">
+        </div>
+
+        <div class="mySlides w3-display-container w3-center">
+            <img src="../static/images/voting2.jpg" width="auto" height="400" style="box-shadow:3px 3px 5px grey;">
+        </div>
+
+        <div class="mySlides w3-display-container w3-center">
+            <img src="../static/images/hilary3.jpg" width="auto" height="400" style="box-shadow:3px 3px 5px grey;">
+        </div>
+
+        <div class="mySlides w3-display-container w3-center">
+            <img src="../static/images/voting3.jpg" width="auto" height="400" style="box-shadow:3px 3px 5px grey;">
+        </div>
+
+        <div class="mySlides w3-display-container w3-center">
+            <img src="../static/images/cheer.jpg" width="auto" height="400" style="box-shadow:3px 3px 5px grey;">
+        </div>
+
+        <div class="mySlides w3-display-container w3-center">
+            <img src="../static/images/trumphat.jpg" width="auto" height="400" style="box-shadow:3px 3px 5px grey;">
+        </div>
+
+        <div class="mySlides w3-display-container w3-center">
+            <img src="../static/images/clintonvoters.jpg" width="auto" height="400" style="box-shadow:3px 3px 5px grey;">
+        </div>
+
+    </div>
+
+    <!-- The Proposal Section -->
+    <div class="w3-container w3-content w3-padding-16" style="max-width:800px;" id="Proposal">
+        <hr>
+        <h2 class="w3-wide w3-center">PERSONALITY POLITICS</h2>
+        <p class="w3-justify"> Since the 2016 American presidential election, it seems as though US national politics have become increasingly tribal,
+            with people aligning with candidates that reflect their outlook
+            rather than candidates that reflect specific policy views.
+            With that lens, we wanted to know if there are differences Democrat and Republican personalities? How big are these differences?
+            Are there personality traits that are "Republican" or "Democrat"? If so, what are these charatersitics? And finally,
+            can we predict your politics based on your personality traits?
+            <br>
+            </p>
+            To answer this question, we used a nataral language processor (LIWC) to analyzed 257,000 tweets from the outgoing US senate.
+            Using these tweets, we looked at the differences between Democrats and Republicans and explored to what extent you can predict whether a politician is a
+            Democrat or Republican based on the personality traits of their Twitter feed.
+            The analysis includes:
+        </p>
+        <ol>
+            <li>A description of the charteristics of Democrats and Republicans</li>
+            <li>Analysis of differences both within parties and between parties </li>
+            <li>Understanding how accurately you can predict whether a politician (or a person) is a Democrat or Repbulican  </li>
+            <li>Predicting whether someone is likely a Democrat or a Reublican based on their twitter feed</li>
+            <li>Interactive graphics showing how Democratic and Republican congressmen skew on each feature </li>
+            <li>Layer on the election results and compare the three map data</li>
+            <li>Host the findings using Flask</li>
+        </ol>
+    </div>
+
+    <!-- Directions Section -->
+    <div class="w3-black" id="Tools">
+        <div class="w3-container w3-content w3-padding-32" style="max-width:800px">
+            <h2 class="w3-wide w3-center">Tools</h2>
+            <ol>
+                <li>Python - Flask, Pymongo, Tweepy, Beautiful Soup</li>
+                <li>Database - MongoDB (Cloudservice - MLAB)</li>
+                <li>JS Libraries - Plotly, Leaflet, D3, JQuery</li>
+                <li>Front End - HTML, Bootstrap</li>
+                <li>Misc. - GeoJSON, KML(Keyhole Markup Language)</li>
+                <li>That's what it's all about</li>
+            </ol>
+        </div>
+    </div>
+
+
+    <!-- The Map Section -->
+    <div id="Map">
+        <div class="w3-container w3-content w3-padding-32" style="max-width:800px">
+            <h2 class="w3-wide w3-center">Map</h2>
+            <img src="../static/images/map.jpg" styles="width:100%">
+        </div>
+    </div>
+
+
+
+    <!-- Analysis Section -->
+    <div class="w3-black" id="Analysis">
+        <div class="w3-container w3-content w3-padding-32" style="max-width:800px">
+            <h2 class="w3-wide w3-center">Analysis</h2>
+            <p>
+                Using the twitter api, we pulled 250,000 tweest from conngressmembers. We then used the LIWC api
+                understand what their personatity was based on their twitter feeds. From there, we analyzed the personility
+                traits of our nations leaders, understanding what is the overall personality of the congress and how democrats and republicans differ.
+                 Next, we used machine learning (Random Forests) to understand to what extent you can predict whether someone is democrat or republican based on their twitter feed </p>
+                <H2> Limitations & Considerations:</h2>
+                  <p> The personalities based on twitter may not be representative of a person's overall personality</p>
+                  <li>We believe that the personality of the twitter feeds is based on which party is in power, and several traits may change based on which party is in power</li>
+                  <li>We are limited by the timeframe - this may changed if looked at over shorter or longer timeframes</li>
+                  <li>Other factors, such whether a candidate is running for re-election, as time in office, region and size of twitter following could influence personality</li>
+
+
+                 <fieldset>
+
+
+                </fieldset>
+            </p>
+        </div>
+    </div>
+
+    <!-- The Members Section -->
+    <div class="w3-light-grey" id="Members">
+        <div class="w3-container w3-content w3-padding-32" style="max-width:800px">
+            <h2 class="w3-wide w3-center">Members</h2>
+            <div class="w3-row-padding w3-margin-top">
+
+                <div class="w3-quarter">
+                    <div class="w3-card">
+                        <img src="../static/images/eric.png" class="w3-opacity w3-hover-opacity-off" style="width:100%">
+                        <div class="w3-container w3-center">
+                            <p>Eric</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w3-quarter">
+                    <div class="w3-card">
+                        <img src="../static/images/vikas.png" class="w3-opacity w3-hover-opacity-off" style="width:100%">
+                        <div class="w3-container w3-center">
+                            <p>Vikas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w3-quarter">
+                    <div class="w3-card">
+                        <img src="../static/images/ed.png" class="w3-opacity w3-hover-opacity-off" style="width:100%">
+                        <div class="w3-container w3-center">
+                            <p>Ed</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w3-quarter">
+                    <div class="w3-card">
+                        <img src="../static/images/sandra.png" class="w3-opacity w3-hover-opacity-off" style="width:100%", style="height:200%", >
+                        <div class="w3-container w3-center">
+                            <p>Sandra</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Page Content -->
+
+
+    <!-- Footer -->
+    <footer class="w3-container w3-padding-16 w3-center w3-opacity w3-light-grey w3-xlarge">
+        <p class="w3-medium">Northwestern Data Science Boot Camp</p>
+    </footer>
+
+    <script>
+        // Automatic Slideshow - change image every 4 seconds
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 3000);
+        }
+
+        // Used to toggle the menu on small screens when clicking on the menu button
+        function myFunction() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        var modal = document.getElementById('ticketModal');
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+
+
+</body>
+
+</html>
