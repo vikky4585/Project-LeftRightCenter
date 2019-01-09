@@ -38,8 +38,17 @@ function fetchData(){
                 let user = d[0]["handle"];
                 let predictions = d[0]["predicted"];
                 console.log("predictions " + predictions);
+                // d3.selectAll("#predictionText").
+                // text(user+" is likely "+ predictions + " with " + +d[0]["model_accuracy"].toFixed(4) * 100 + "% accuracy.")  ; 
+                let clr = "blue";
+                if(predictions === "Republican"){
+                    clr = "red";
+                }
+            
+
                 d3.selectAll("#predictionText").
-                text(user+" is likely "+ predictions + " with " + +d[0]["model_accuracy"].toFixed(2) * 100 + "% accuracy.")  ; 
+                html("<p>" +user+" is likely <strong><span style=\"color:"+clr+"\">"+ predictions + "</span></strong> with " + +d[0]["model_accuracy"].toFixed(4) * 100 + "% accuracy.</p>")  ; 
+
                 epochs = Array.from({length:d[0]['acc'].length-1},(v,k)=>k+1)
                 var trace1 = {
                     type: "scatter",
@@ -99,3 +108,4 @@ function fetchData(){
 }
 
 d3.select("#predict").on("click",fetchData);
+
