@@ -44,13 +44,21 @@ function fetchData(){
                 if(predictions === "Republican"){
                     clr = "red";
                 }
-            
+                let features = d[0]["features"];
+                console.log("Featues " + features)
+                if(features.length === 0){
+                    features = "All";
+                } else {
+                    features = features.join()
+                }
 
                 d3.selectAll("#predictionText").
                 html("<p>" +user+" is likely <strong><span style=\"color:"+clr+"\">"+ predictions + "</span></strong> with " 
                 + +d[0]["model_accuracy"].toFixed(4) * 100 
-                + "% accuracy.</p><br>"
-                + "<p>Model " + d[0]["algoname"] + " is trained on a dataset of ~257000 tweets with dataset ~4000.</p>")  ; 
+                + "% accuracy.</p>"
+                + "<p>Model " + d[0]["algoname"] + " is trained on a dataset of ~257000 tweets divided in ~4000 rows.</p>"
+                + "<p>Model is trained on <strong>" + features + "</strong> features of input dataset.</p>");
+                
 
                 epochs = Array.from({length:d[0]['acc'].length-1},(v,k)=>k+1)
                 var trace1 = {

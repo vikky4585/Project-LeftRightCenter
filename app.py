@@ -159,6 +159,7 @@ def predict():
     #packet['backend_algoname'] = algoNameMap[algoname] 
 
     packet['predicted'] = str(predicted)
+    packet['features'] = algoNameMap[algoname]['columns']
     #return render_template("dnn.html", packet=packet)
     matrix_path = 'data/matrix/' + algoNameMap[algoname]['model_name'] + '_matrix.txt'
     matrixDict = json.load(open(matrix_path))
