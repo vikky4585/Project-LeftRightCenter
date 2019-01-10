@@ -8,7 +8,6 @@ import tensorflow as tf
 from keras.models import Sequential
 from keras.utils import to_categorical
 from keras.layers import Dense
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import requests
