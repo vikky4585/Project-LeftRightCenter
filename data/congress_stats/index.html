@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Events</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+<h2> Overall Personality Traits of Congress</h2>
+  <select id="selDataset" onchange="getData(this.value)">
+    <option value="dataset1">Top personality traits of all congressmen</option>
+    <option value="dataset2">Personality traits ABSENT from congress (a.k.a. - your congressmen is likely not this)</option>
+    <option value="dataset3">Personality traits of all congressmen (in descending order)</option>
+  </select>
+  <div id="plot"></div>
+  <script src="plots_congress.js"></script>
+<body>
+
+</html>

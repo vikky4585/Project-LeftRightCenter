@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Events</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+<h2> Overall Personality Traits: Differences Between Democrats and Republicans</h2>
+<p> Overall, Democrats and Republicans scored similarily on personality traits, and there are more differences within groups than between them.
+  However, there were some differences between groups: </p>
+  <li> In general, Democrats exhibited more negative traits on their twitter feeds.  We hypthesize that this may be due to being the 'out of power' part</li>
+  <li> In this analysis, we used raw scores as opposed to percentiles, as the raw scores give a better represenation of true differences
+  between groups. In the charts below, these differences roughly correlate with a 10% - 20% difference between groups</li>
+
+  <select id="selDataset" onchange="getData(this.value)">
+    <option value="dataset1">Personality traits - predominantly Republican</option>
+    <option value="dataset2">Personality traits - predominantly Democratic</option>
+    <option value="dataset3">Personality traits - Republican to Democrat</option>
+  </select>
+  <div id="plot"></div>
+  <script src="plots_party.js"></script>
+<body>
+
+</html>
