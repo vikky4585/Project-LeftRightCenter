@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Congressional Personalities</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Congressional Personalities</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Select Trait<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="insecure.html">Insecure</a></li>
+          <li><a href="aggressive.html">Aggressive</a></li>
+          <li><a href="liberal.html">Liberal</a></li>
+          <li><a href="disciplined.html">Disciplined</a></li>
+          <li><a href="self_conscious.html">Self Conscious</a></li>
+          <li><a href="friendly.html">Friendly</a></li>
+          <li><a href="empathy.html">Empathy</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Republicans</a></li>
+      <li><a href="#">Democrats</a></li>
+    </ul>
+  </div>
+</nav>
+<body>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script>
+var width = 800,
+    height = 500;
+
+var nodes = d3.range(102).map(function() { return {radius: 5}; }),
+    root = nodes[0];
+
+root.radius = 0;
+root.fixed = true;
+
+var force = d3.layout.force()
+    .gravity(.09)
+    .charge(function(d, i) { return i ? 10 : 1000; })
+    .nodes(nodes)
+    .size([width, height]);
+
+force.start();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+
+var circles = svg.selectAll("circle");
+
+var rValues = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
+var bValues = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
+
+var oValues = [30]
+circles.data(oValues)
+    .enter()
+    .append("circle")
+    .attr("cx", 750)
+    .attr("cy", 750)
+    .attr("r", function(d) {
+      return d;
+    })
+    .attr("stroke", "red")
+    .attr("stroke-width", "10")
+    .attr("fill", "orange");
+
+circles.data(rValues)
+    .enter()
+    .append("circle")
+    .attr("cx", 750)
+    .attr("cy", 750)
+    .attr("r", function(d) {
+      return d;
+    })
+    .attr("stroke", "black")
+    .attr("stroke-width", "2")
+    .attr("fill", "red");
+
+circles.data(bValues)
+    .enter()
+    .append("circle")
+    .attr("cx", 750)
+    .attr("cy", 750)
+    .attr("r", function(d) {
+      return d;
+    })
+    .attr("stroke", "black")
+    .attr("stroke-width", "2")
+    .attr("fill", "blue");
+    
+svg.selectAll("circle")
+    .data(nodes.slice(1))
+  .enter().append("circle")
+    .attr("r", function(d) { return d.radius; })
+    .style("fill", function(d, i) { return color(i % 2); });
+
+force.on("tick", function(e) {
+  var q = d3.geom.quadtree(nodes),
+      i = 0,
+      n = nodes.length;
+
+  while (++i < n) q.visit(collide(nodes[i]));
+
+  svg.selectAll("circle")
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+});
+
+svg.on("mousemove", function() {
+  var p1 = d3.mouse(this);
+  root.px = p1[0];
+  root.py = p1[1];
+  force.resume();
+});
+
+function collide(node) {
+  var r = node.radius + 16,
+      nx1 = node.x - r,
+      nx2 = node.x + r,
+      ny1 = node.y - r,
+      ny2 = node.y + r;
+  return function(quad, x1, y1, x2, y2) {
+    if (quad.point && (quad.point !== node)) {
+      var x = node.x - quad.point.x,
+          y = node.y - quad.point.y,
+          l = Math.sqrt(x * x + y * y),
+          r = node.radius + quad.point.radius;
+      if (l < r) {
+        l = (l - r) / l * 2;
+        node.x -= x *= l;
+        node.y -= y *= l;
+        quad.point.x += x;
+        quad.point.y += y;
+      }
+    }
+    return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+  };
+}

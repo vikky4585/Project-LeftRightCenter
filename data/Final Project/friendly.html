@@ -51,6 +51,7 @@ circle {
           <li><a href="self_conscious.html">Self Conscious</a></li>
           <li><a href="friendly.html">Friendly</a></li>
           <li><a href="generous.html">Generous</a></li>
+          <li><a href="empathy.html">Empathy</a></li>          
         </ul>
       </li>
       <li><a href="#">Republicans</a></li>
@@ -79,12 +80,12 @@ var g = svg.append("g")
 d3.csv("liwc_individual_percentile_scores2.csv", myType, function(error, data) {
   if (error) throw error;
 
-  x.domain(d3.extent(data, function(d) { return d.liberal}));
+  x.domain(d3.extent(data, function(d) { return d.friendly}));
 
-  console.log(data.liberal)
+  console.log(data.friendly)
 
   var simulation = d3.forceSimulation(data)
-      .force("x", d3.forceX(function(d) { return x(d.liberal); }).strength(1))
+      .force("x", d3.forceX(function(d) { return x(d.friendly); }).strength(1))
       .force("y", d3.forceY(height / 2))
       .force("collide", d3.forceCollide(6))
       .stop();
@@ -122,11 +123,11 @@ d3.csv("liwc_individual_percentile_scores2.csv", myType, function(error, data) {
       .attr("d", function(d) { return "M" + d.join("L") + "Z"; });
 
   cell.append("title")
-      .text(function(d) { return d.data.name + "-" + formatValue(d.data.liberal); });
+      .text(function(d) { return d.data.name + "-" + formatValue(d.data.friendly); });
 });
 function myType(d) {
-  if (!d.liberal) return;
-  d.liberal= +d.liberal;
+  if (!d.friendly) return;
+  d.friendly= +d.friendly;
   return d;
 }
 

@@ -2,8 +2,8 @@
 var topPrecincts = [];
 
 // Setting the dimensions for the SVG container
-var svgHeight = 200;
-var svgWidth = 600;
+var svgHeight = 500;
+var svgWidth = 500;
 
 var svg = d3
   .select("#svg-area")
