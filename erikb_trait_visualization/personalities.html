@@ -7,13 +7,19 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  circle {
+  opacity: 0.7;
+  stroke-width: 3;
+  }
+</style>
 </head>
 <body>
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Congressional Personalities</a>
+      <a class="navbar-brand" href="personalities.html">Congressional Personalities</a>
     </div>
     <ul class="nav navbar-nav">
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Select Trait<span class="caret"></span></a>
@@ -27,8 +33,7 @@
           <li><a href="empathy.html">Empathy</a></li>
         </ul>
       </li>
-      <li><a href="#">Republicans</a></li>
-      <li><a href="#">Democrats</a></li>
+      <li><a href="#">What Personality Traits Define Democrats and Republicans Recently?</a></li>
     </ul>
   </div>
 </nav>
@@ -36,17 +41,17 @@
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script>
 var width = 800,
-    height = 500;
+    height = 300;
 
-var nodes = d3.range(102).map(function() { return {radius: 5}; }),
+var nodes = d3.range(101).map(function() { return {radius: 5}; }),
     root = nodes[0];
 
 root.radius = 0;
 root.fixed = true;
 
 var force = d3.layout.force()
-    .gravity(.09)
-    .charge(function(d, i) { return i ? 10 : 1000; })
+    .gravity(.0005)
+    .charge(function(d, i) { return i ? 5 : 350; })
     .nodes(nodes)
     .size([width, height]);
 
@@ -59,23 +64,11 @@ var svg = d3.select("body").append("svg")
 
 var circles = svg.selectAll("circle");
 
-var rValues = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
-var bValues = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10];
+var rValues = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+  5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+var bValues = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+  5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
 
-var oValues = [30]
-circles.data(oValues)
-    .enter()
-    .append("circle")
-    .attr("cx", 750)
-    .attr("cy", 750)
-    .attr("r", function(d) {
-      return d;
-    })
-    .attr("stroke", "red")
-    .attr("stroke-width", "10")
-    .attr("fill", "orange");
 
 circles.data(rValues)
     .enter()
@@ -85,8 +78,6 @@ circles.data(rValues)
     .attr("r", function(d) {
       return d;
     })
-    .attr("stroke", "black")
-    .attr("stroke-width", "2")
     .attr("fill", "red");
 
 circles.data(bValues)
@@ -97,10 +88,7 @@ circles.data(bValues)
     .attr("r", function(d) {
       return d;
     })
-    .attr("stroke", "black")
-    .attr("stroke-width", "2")
     .attr("fill", "blue");
-    
 svg.selectAll("circle")
     .data(nodes.slice(1))
   .enter().append("circle")
@@ -139,7 +127,7 @@ function collide(node) {
           l = Math.sqrt(x * x + y * y),
           r = node.radius + quad.point.radius;
       if (l < r) {
-        l = (l - r) / l * 2;
+        l = (l - r) / l * .3;
         node.x -= x *= l;
         node.y -= y *= l;
         quad.point.x += x;
@@ -149,3 +137,7 @@ function collide(node) {
     return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
   };
 }
+
+</script>
+<h5>-This visualization is entitled "How a Bill Becomes A Law"</h5>
+</html>
