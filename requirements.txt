@@ -22,7 +22,7 @@ matplotlib==3.0.2
 numpy==1.15.4
 oauthlib==2.1.0
 pandas==0.23.4
-protobuf==3.6.1
+protobuf==3.18.3
 pyparsing==2.3.0
 PySocks==1.6.8
 python-dateutil==2.7.5
